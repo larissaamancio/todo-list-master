@@ -1,0 +1,10 @@
+<p id="notice"><%= flash[:notice] %></p>
+
+<h1>Premium jobs</h1>
+
+<%= render @todos %>
+
+<br />
+<%= link_to 'New Todo', new_todo_path %>
+<br />
+<%= link_to 'All Todos', todos_path %>

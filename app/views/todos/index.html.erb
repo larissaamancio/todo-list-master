@@ -1,0 +1,8 @@
+<p id="notice"><%= flash[:notice] %></p>
+
+<h1>Listing Todos</h1>
+
+<%= render @todos %>
+
+<%= link_to 'New Todo', new_todo_path %>
+<%= link_to 'Public Todos', root_path %>

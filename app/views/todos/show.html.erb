@@ -1,0 +1,25 @@
+<p id="notice"><%= flash[:notice] %></p>
+<p id="alert"><%= alert %></p>
+
+
+<p>
+  <strong>Title:</strong>
+  <%= @todo.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @todo.description %>
+</p>
+
+<%= pluralize(@todo.items.size, "item") %> |
+<%= link_to 'Edit', edit_todo_path(@todo) %> |
+<%= link_to 'Back', todos_path %>
+
+
+<h2>Items</h2>
+
+<%= render @todo.items %>
+
+<h2>Send a new item</h2>
+<%= render "items/form" %>
