@@ -5,11 +5,13 @@ class TodosController < ApplicationController
 
 
   def index
-    @todos = Todo.most_recent.includes(:user).all
+    @todos = Todo.most_recent.includes(:user).where(:user_id => current_user)
   end
 
   def show
     @todo = current_user.todos.find(params[:id])
+
+    
   end
 
   def new
@@ -58,6 +60,26 @@ class TodosController < ApplicationController
     respond_to do |format|
       format.html { redirect_to todos_url, notice: 'Todo was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def is_done
+    @todo = Todo.find(params[:todo_id])
+    @todo.done = true
+
+    respond_to do |format|
+      format.html do
+        if @todo.save
+          flash[:notice] = "Item was created with success!"
+        else
+          flash[:alert] = "Please fill in all fields to create a item."
+        end    
+        redirect_to todos_path
+      end
+
+      format.js do
+        @todo.save
+      end
     end
   end
 

@@ -1,0 +1,6 @@
+<% if @item.errors.empty? %>
+  $('#new_todo')[0].reset();
+  alert('todo was doned with success!');
+<% else %>
+  alert('Please fill in all fields to done a item.');
+<% end %>

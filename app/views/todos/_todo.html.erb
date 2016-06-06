@@ -4,12 +4,16 @@
 
 <p>
   <%= pluralize(todo.items.size, "item") %> |
+
   <%= link_to 'Show', todo %> 
+
   <% if current_user == todo.user %>
     | <%= link_to 'Edit', edit_todo_path(todo) %> |
     <%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' } %>
-   <% end %>
+  <% end %>
+
+  <% unless todo.done %>
+   	| <%= link_to 'Is Done', todo_todo_is_done_path(todo.id), data: {confirm: 'Are you sure?'}, method: :put %>
+  <% end %>
+  
 </p>
-
-
- 

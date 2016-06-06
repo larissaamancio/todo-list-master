@@ -16,6 +16,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+
 body {
   padding-top: 60px;
 }
@@ -42,3 +43,7 @@ body {
   background-image: url("bootstrap/glyphicons-halflings-white.png");
 }
 
+.disable{
+	pointer-events: none;
+	cursor: default;
+}
