@@ -1,25 +1,21 @@
-<p id="notice"><%= flash[:notice] %></p>
-<p id="alert"><%= alert %></p>
+<h1><%= todo_title @todo %></h1>
 
-
-<p>
-  <strong>Title:</strong>
-  <%= @todo.title %>
-</p>
+<%= simple_format @todo.description %>
 
 <p>
-  <strong>Description:</strong>
-  <%= @todo.description %>
+  <%= pluralize(@todo.items.size, "item") %> |
+  <% if current_user == @todo.user %>
+    <%= link_to 'Edit', edit_todo_path(@todo) %> |
+  <% end %>
+  <%= link_to 'Back', todos_path %>
 </p>
-
-<%= pluralize(@todo.items.size, "item") %> |
-<%= link_to 'Edit', edit_todo_path(@todo) %> |
-<%= link_to 'Back', todos_path %>
-
 
 <h2>Items</h2>
 
-<%= render @todo.items %>
-
 <h2>Send a new item</h2>
 <%= render "items/form" %>
+
+<h2>Items</h2>
+<div id="items">
+  <%= render @todo.items %>
+</div>

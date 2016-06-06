@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160604210150) do
+ActiveRecord::Schema.define(version: 20160605174358) do
 
   create_table "items", force: :cascade do |t|
     t.text     "name",       limit: 65535
@@ -27,7 +27,10 @@ ActiveRecord::Schema.define(version: 20160604210150) do
     t.boolean  "done"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "user_id",     limit: 255
   end
+
+  add_index "todos", ["user_id"], name: "index_todos_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -42,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160604210150) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
+    t.string   "name",                   limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

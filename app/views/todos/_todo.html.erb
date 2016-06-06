@@ -1,13 +1,15 @@
-
-<h1><%= todo_title(todo) %></h1>
-
+<h3><%= todo_title(todo) %></h3>
 
 <%= simple_format todo.description %>
 
 <p>
   <%= pluralize(todo.items.size, "item") %> |
-
-  <%= link_to 'Show', todo %> |
-  <%= link_to 'Edit', edit_todo_path(todo) %> |
-  <%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Show', todo %> 
+  <% if current_user == todo.user %>
+    | <%= link_to 'Edit', edit_todo_path(todo) %> |
+    <%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' } %>
+   <% end %>
 </p>
+
+
+ 

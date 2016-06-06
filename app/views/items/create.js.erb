@@ -1,0 +1,7 @@
+<% if @item.errors.empty? %>
+  $('#items').prepend('<%=j render(@item) %>');
+  $('#new_item')[0].reset();
+  alert('item was created with success!');
+<% else %>
+  alert('Please fill in all fields to create a item.');
+<% end %>

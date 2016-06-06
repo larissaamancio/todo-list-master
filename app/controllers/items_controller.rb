@@ -1,14 +1,23 @@
 class ItemsController < ApplicationController
-
+  before_action :authenticate_user!
+  
   def create
     @todo = Todo.find(params[:todo_id])
     @item = @todo.items.build(item_params)
-    if @item.save
-      flash[:notice] = "Item was created with success!"
-    else
-      flash[:alert] = "Please fill in all fields to create a item."
-    end    
-    redirect_to @todo
+
+    respond_to do |format|
+      format.html do
+        if @item.save
+          flash[:notice] = "Item was created with success!"
+        else
+          flash[:alert] = "Please fill in all fields to create a item."
+        end    
+        redirect_to @todo
+      end
+      format.js do
+        @item.save
+      end
+    end
   end
 
   def destroy
