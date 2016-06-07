@@ -1,5 +1,4 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!
   
   def create
     @todo = Todo.find(params[:todo_id])
@@ -23,14 +22,12 @@ class ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])
     @item.destroy
-    redirect_to @item.job, notice: "item destroyed with success."
+    redirect_to :back, notice: "item destroyed with success."
   end
 
   private
-
   def item_params
     params.require(:item).permit(:name, :todo_id)
-
   end
 end
 

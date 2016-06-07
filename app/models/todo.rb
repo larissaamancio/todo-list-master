@@ -5,5 +5,7 @@ class Todo < ActiveRecord::Base
 
   scope :most_recent, ->{order("created_at DESC")}
 
+  has_many :bookmarks 
+  has_many :users, through: :bookmarks
 
 end

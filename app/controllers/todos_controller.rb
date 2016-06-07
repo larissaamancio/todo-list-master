@@ -1,34 +1,23 @@
 class TodosController < ApplicationController
-  # before_action :set_todo, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :set_todo, only: [:show, :edit, :update, :destroy]
   before_filter :authorize_user, only: [:new, :create, :edit, :update, :destroy]
-
 
   def index
     @todos = Todo.most_recent.includes(:user).where(:user_id => current_user)
   end
 
   def show
-    @todo = current_user.todos.find(params[:id])
-
-    
   end
 
   def new
-    # @todo = Todo.new
-     @todo = current_user.todos.build
-
+    @todo = current_user.todos.build
   end
 
   def edit
-    @todo = current_user.todos.find(params[:id])
   end
 
   def create
-
     @todo = current_user.todos.build(todo_params)
-
-    # @todo = Todo.new(todo_params)
 
     respond_to do |format|
       if @todo.save
@@ -42,7 +31,6 @@ class TodosController < ApplicationController
   end
 
   def update
-    @todo = current_user.todos.find(params[:id])
     respond_to do |format|
       if @todo.update(todo_params)
         format.html { redirect_to @todo, notice: 'Todo was successfully updated.' }
@@ -55,8 +43,6 @@ class TodosController < ApplicationController
   end
 
   def destroy
-    # @todo.destroy
-    @todo = current_user.todos.find(todo_params)
     respond_to do |format|
       format.html { redirect_to todos_url, notice: 'Todo was successfully destroyed.' }
       format.json { head :no_content }
@@ -87,14 +73,21 @@ class TodosController < ApplicationController
     @todos = Todo.where(:public => true).most_recent.includes(:user).all
   end
 
+  def bookmarks
+    @bm = Bookmark.where(:user_id => current_user)
+    @todos = []
+    @bm.each do |teste|
+      @todos << teste.todo
+    end
+  end
+
   private
     def set_todo
-      @todo = Todo.find(params[:id])
+      @todo = current_user.todos.find(params[:id])
     end
 
     def todo_params
       params.require(:todo).permit(:title, :description, :public, :user)
-
     end
 
     def authorize_user
@@ -103,4 +96,3 @@ class TodosController < ApplicationController
       end
     end
 end
-

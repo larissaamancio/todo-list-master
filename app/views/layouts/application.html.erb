@@ -24,7 +24,8 @@
           <% if current_user %>
             <li><%= link_to "My lists", todos_path %></li>
             <li><%= link_to "New List", new_todo_path %></li>
-            <li><a>Logged as <%= current_user.name %></a></li>
+            <li><%= link_to "My favorite lists <3", bookmarks_todos_path %></li>
+            <li><a>Logged as <%= current_user.email %></a></li>
             <li><%= link_to('Logout', destroy_user_session_path, :method=>'delete') %></li>
           <% else %>
             <li><%= link_to "New user", new_user_registration_path %></li>

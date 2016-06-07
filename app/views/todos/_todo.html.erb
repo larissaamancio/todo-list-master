@@ -8,12 +8,26 @@
   <%= link_to 'Show', todo %> 
 
   <% if current_user == todo.user %>
+
     | <%= link_to 'Edit', edit_todo_path(todo) %> |
     <%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+    <% unless todo.done %>
+    | <%= link_to 'Done', todo_todo_is_done_path(todo.id), data: {confirm: 'Are you sure?'}, method: :put %>
+    <% end %>
+
   <% end %>
 
-  <% unless todo.done %>
-   	| <%= link_to 'Is Done', todo_todo_is_done_path(todo.id), data: {confirm: 'Are you sure?'}, method: :put %>
+  <% if todo.public %>
+
+    <% unless todo.bookmarks.exists? %>
+    | <%= link_to 'Favorite <3', bookmarks_path(todo_id: todo.id), method: :post %>
+
+    <% else %>
+
+    | <%= link_to "Remove from favorites .-.", bookmark_path(id: todo.id), method: :delete%>
+    
+    <% end %>
   <% end %>
   
 </p>
