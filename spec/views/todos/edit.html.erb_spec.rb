@@ -4,7 +4,8 @@ RSpec.describe "todos/edit", type: :view do
   before(:each) do
     @todo = assign(:todo, Todo.create!(
       :title => "MyString",
-      :description => "MyText"
+      :description => "MyText",
+      :user_id => 1
     ))
   end
 

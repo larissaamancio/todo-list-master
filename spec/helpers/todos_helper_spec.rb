@@ -1,15 +1,34 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the TodosHelper. For example:
-#
-# describe TodosHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe TodosHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  describe TodosHelper do
+
+    let(:current_user) { FactoryGirl.create(:user) }
+    let(:todo) { FactoryGirl.create(:todo) }
+
+    before { helper.stub :current_user => current_user }
+
+    describe "#visibility(todo)" do
+
+      subject { helper.visibility(todo) }
+
+      context "when todo is public" do
+
+        before { todo.stub(:public? => true) }
+
+        it { should eq "public" }
+
+      end
+
+      context "when todo is not public" do
+
+        before { todo.stub(:public? => false) }
+
+        it { should eq "private" }
+
+      end
+
+    end
+  end
 end

@@ -15,11 +15,12 @@ gem 'jbuilder', '~> 2.0'
 
 # end
 
-
 group :development, :test do
   gem 'byebug'
   gem "rspec-rails"
   gem 'capybara'
+  gem "factory_girl_rails", "~> 4.0"
+  gem 'rspec-activemodel-mocks'
 
 end
 
